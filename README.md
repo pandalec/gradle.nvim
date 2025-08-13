@@ -37,9 +37,8 @@ The code is likely not perfect, but it works for my needs and might be useful fo
 ### Built-in `vim.pack` (Neovim 0.12+)
 
 ```lua
-vim.packadd("https://github.com/pandalec/gradle.nvim")
-require("gradle").setup({
-  load_on_startup = true, -- optional
+vim.pack.add({
+	{ src = "https://github.com/pandalec/gradle.nvim" },
 })
 ```
 
