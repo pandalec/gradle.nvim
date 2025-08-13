@@ -40,6 +40,11 @@ The code is likely not perfect, but it works for my needs and might be useful fo
 vim.pack.add({
 	{ src = "https://github.com/pandalec/gradle.nvim" },
 })
+
+require("gradle").setup({
+	-- keymaps = false,
+	load_on_startup = true, -- optional
+})
 ```
 
 ### [lazy.nvim](https://github.com/folke/lazy.nvim)
