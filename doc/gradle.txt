@@ -1,0 +1,77 @@
+*gradle.txt*       Gradle integration for Neovim
+
+==============================================================================
+INTRODUCTION                                             *gradle.nvim-intro*
+
+gradle.nvim provides a simple way to list, filter, preview, and run Gradle
+tasks directly from Neovim. It integrates with Telescope for searching and
+toggleterm for running tasks inside a floating terminal.
+
+It supports:
+  - Automatic detection of Gradle projects (requires `build.gradle` or
+    `build.gradle.kts` in the current working directory; otherwise the plugin
+    is disabled)
+  - Detecting and preferring `./gradlew` over `gradle`
+  - Listing all available tasks, grouped by category
+  - Filtering tasks by group
+  - Previewing task descriptions with word wrap
+  - Running tasks in a reusable floating terminal
+  - Refreshing the task list asynchronously in the background to avoid blocking
+    the Neovim UI
+  - Optionally loading tasks automatically on startup
+  - Health checks to ensure the project and Gradle executable are available
+
+==============================================================================
+SETUP                                                    *gradle.nvim-setup*
+
+Example configuration:
+
+    require("gradle").setup()
+
+Disable default keymaps:
+
+    require("gradle").setup({ keymaps = false })
+
+Load tasks on startup (async in background):
+
+    require("gradle").setup({ load_on_startup = true })
+
+> Note:
+> The plugin only activates in directories containing `build.gradle` or
+> `build.gradle.kts`.
+
+==============================================================================
+COMMANDS                                                 *gradle.nvim-commands*
+
+The following key mappings are available by default (if `keymaps` is not false):
+
+<leader>gr         Refresh the Gradle tasks list asynchronously.
+                   Shows an info message when triggered.
+                   Equivalent to:
+                   `:lua require('gradle').tasks.refresh_tasks_async()`
+
+<leader>gt         Open Telescope to pick and run a Gradle task.
+                   Inside Telescope:
+                     <CR>   → Run selected task in terminal
+                     <C-g>  → Filter by the selected task's group
+                     <C-b>  → Jump back to the full tasks list
+
+<leader>gw         Toggle the Gradle floating terminal window.
+
+==============================================================================
+HEALTH CHECK                                            *gradle.nvim-health*
+
+You can run `:checkhealth gradle` to verify:
+  - Whether you are in a valid Gradle project
+  - Whether a Gradle executable (`./gradlew` or `gradle`) is available
+
+If no `build.gradle` or `build.gradle.kts` is found, the plugin will be inactive.
+
+==============================================================================
+AUTHOR                                                  *gradle.nvim-author*
+
+Created by: pandalec  
+License: MIT
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
