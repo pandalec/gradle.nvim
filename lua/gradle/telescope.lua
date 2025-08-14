@@ -77,32 +77,33 @@ local function pick_tasks_filtered_by_group(tasks, group)
 	end
 
 	pickers
-		.new({}, {
-			prompt_title = "Gradle Tasks: " .. group,
-			finder = make_finder(filtered),
-			sorter = conf.generic_sorter({}),
-			previewer = previewer_task(),
-			attach_mappings = function(prompt_bufnr, map)
-				map("i", "<CR>", run_task_action)
-				map("n", "<CR>", run_task_action)
+	    .new({}, {
+		    prompt_title = "Gradle Tasks: " .. group,
+		    finder = make_finder(filtered),
+		    sorter = conf.generic_sorter({}),
+		    previewer = previewer_task(),
+		    attach_mappings = function(prompt_bufnr, map)
+			    map("i", "<CR>", run_task_action)
+			    map("n", "<CR>", run_task_action)
 
-				local jump_back = function()
-					actions.close(prompt_bufnr)
-					M.pick_tasks()
-				end
-				map("i", "<C-b>", jump_back)
-				map("n", "<C-b>", jump_back)
+			    local jump_back = function()
+				    actions.close(prompt_bufnr)
+				    M.pick_tasks()
+			    end
+			    map("i", "<C-S-g>", jump_back)
+			    map("n", "<C-S-g>", jump_back)
 
-				return true
-			end,
-		})
-		:find()
+			    return true
+		    end,
+	    })
+	    :find()
 end
 
 function M.pick_tasks()
 	local tasks = tasks_module.load_tasks()
 	if not tasks or #tasks == 0 then
-		vim.notify("[gradle.nvim] No Gradle tasks available yet. Refreshing in background...", vim.log.levels.INFO)
+		vim.notify("[gradle.nvim] No Gradle tasks available yet. Refreshing in background...",
+			vim.log.levels.INFO)
 		tasks_module.refresh_tasks_async(function(new_tasks)
 			if new_tasks and #new_tasks > 0 then
 				-- re-open picker when ready (optional, simple approach: notify only)
@@ -116,32 +117,32 @@ function M.pick_tasks()
 	end
 
 	pickers
-		.new({}, {
-			prompt_title = "Gradle Tasks",
-			finder = make_finder(tasks),
-			sorter = conf.generic_sorter({}),
-			previewer = previewer_task(),
-			attach_mappings = function(prompt_bufnr, map)
-				local actions = require("telescope.actions")
-				local action_state = require("telescope.actions.state")
+	    .new({}, {
+		    prompt_title = "Gradle Tasks",
+		    finder = make_finder(tasks),
+		    sorter = conf.generic_sorter({}),
+		    previewer = previewer_task(),
+		    attach_mappings = function(prompt_bufnr, map)
+			    local actions = require("telescope.actions")
+			    local action_state = require("telescope.actions.state")
 
-				map("i", "<CR>", run_task_action)
-				map("n", "<CR>", run_task_action)
+			    map("i", "<CR>", run_task_action)
+			    map("n", "<CR>", run_task_action)
 
-				local filter_group = function()
-					local selection = action_state.get_selected_entry()
-					if selection and selection.value and selection.value.group then
-						actions.close(prompt_bufnr)
-						pick_tasks_filtered_by_group(tasks, selection.value.group)
-					end
-				end
-				map("i", "<C-g>", filter_group)
-				map("n", "<C-g>", filter_group)
+			    local filter_group = function()
+				    local selection = action_state.get_selected_entry()
+				    if selection and selection.value and selection.value.group then
+					    actions.close(prompt_bufnr)
+					    pick_tasks_filtered_by_group(tasks, selection.value.group)
+				    end
+			    end
+			    map("i", "<C-g>", filter_group)
+			    map("n", "<C-g>", filter_group)
 
-				return true
-			end,
-		})
-		:find()
+			    return true
+		    end,
+	    })
+	    :find()
 end
 
 function M.pick_groups()
@@ -162,24 +163,24 @@ function M.pick_groups()
 	table.sort(groups)
 
 	pickers
-		.new({}, {
-			prompt_title = "Gradle Task Groups",
-			finder = finders.new_table(groups),
-			sorter = conf.generic_sorter({}),
-			attach_mappings = function(prompt_bufnr, map)
-				local actions = require("telescope.actions")
-				local action_state = require("telescope.actions.state")
-				local choose_group = function()
-					local selection = action_state.get_selected_entry()[1]
-					actions.close(prompt_bufnr)
-					pick_tasks_filtered_by_group(tasks, selection)
-				end
-				map("i", "<CR>", choose_group)
-				map("n", "<CR>", choose_group)
-				return true
-			end,
-		})
-		:find()
+	    .new({}, {
+		    prompt_title = "Gradle Task Groups",
+		    finder = finders.new_table(groups),
+		    sorter = conf.generic_sorter({}),
+		    attach_mappings = function(prompt_bufnr, map)
+			    local actions = require("telescope.actions")
+			    local action_state = require("telescope.actions.state")
+			    local choose_group = function()
+				    local selection = action_state.get_selected_entry()[1]
+				    actions.close(prompt_bufnr)
+				    pick_tasks_filtered_by_group(tasks, selection)
+			    end
+			    map("i", "<CR>", choose_group)
+			    map("n", "<CR>", choose_group)
+			    return true
+		    end,
+	    })
+	    :find()
 end
 
 return M
