@@ -16,6 +16,8 @@ This is my first attempt at writing a Neovim plugin in Lua - I'm still pretty ne
 
 The code is likely not perfect, but it works for my needs and might be useful for others as well. Feedback, improvements, and pull requests are very welcome!
 
+For reference, I added my used .dotfiles [here](https://github.com/pandalec/dotfiles).
+
 ---
 
 ## Features
@@ -38,6 +40,8 @@ The code is likely not perfect, but it works for my needs and might be useful fo
 
 ```lua
 vim.pack.add({
+	{ src = "https://github.com/akinsho/toggleterm.nvim" }, -- dependency
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" }, -- dependency
 	{ src = "https://github.com/pandalec/gradle.nvim" },
 })
 
@@ -97,7 +101,7 @@ Inside Telescope:
 
 - `<CR>` → Run selected task
 - `<C-g>` → Filter by selected task's group
-- `<C-b>` → Jump back to full task list
+- `<C-S-g>` → Jump back to full task list
 
 ---
 

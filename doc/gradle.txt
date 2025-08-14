@@ -1,4 +1,4 @@
-*gradle.txt*       Gradle integration for Neovim
+*gradle*       Simple Gradle integration for Neovim
 
 ==============================================================================
 INTRODUCTION                                             *gradle.nvim-intro*
@@ -47,16 +47,25 @@ The following key mappings are available by default (if `keymaps` is not false):
 
 <leader>gr         Refresh the Gradle tasks list asynchronously.
                    Shows an info message when triggered.
+
                    Equivalent to:
                    `:lua require('gradle').tasks.refresh_tasks_async()`
 
+
 <leader>gt         Open Telescope to pick and run a Gradle task.
                    Inside Telescope:
-                     <CR>   → Run selected task in terminal
-                     <C-g>  → Filter by the selected task's group
-                     <C-b>  → Jump back to the full tasks list
+                     <CR>    -> Run selected task in terminal
+                     <C-g>   -> Filter by the selected task's group
+                     <C-S-g> -> Jump back to the full tasks list
+
+                   Equivalent to:
+                   `:lua require('gradle').telescope.pick_tasks()`
+
 
 <leader>gw         Toggle the Gradle floating terminal window.
+
+                   Equivalent to:
+                   `:lua require('gradle').terminal.toggle()`
 
 ==============================================================================
 HEALTH CHECK                                            *gradle.nvim-health*
