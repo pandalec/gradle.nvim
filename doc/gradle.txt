@@ -36,6 +36,10 @@ Load tasks on startup (async in background):
 
     require("gradle").setup({ load_on_startup = true })
 
+Disable notification on startup:
+
+    require("gradle").setup({ disable_startup_notification = true })
+
 > Note:
 > The plugin only activates in directories containing `build.gradle` or
 > `build.gradle.kts`.
