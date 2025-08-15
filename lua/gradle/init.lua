@@ -10,16 +10,22 @@ M.terminal = require("gradle.terminal")
 M.config = {
 	keymaps = true,
 	load_on_startup = false,
+	disable_startup_notification = false,
 }
 
 function M.setup(opts)
 	opts = opts or {}
 	M.config.keymaps = opts.keymaps ~= false
 	M.config.load_on_startup = opts.load_on_startup == true
+	M.config.disable_startup_notification = opts.disable_startup_notification == true
 
 	-- Early exit if not a Gradle project
 	if not M.state.is_gradle_project() then
-		vim.notify("[gradle.nvim] No build.gradle found in current project — plugin disabled", vim.log.levels.DEBUG)
+		-- Only print startup notification if enabled
+		if not M.config.disable_startup_notification then
+			vim.notify("[gradle.nvim] No build.gradle found in current project — plugin disabled",
+				vim.log.levels.INFO)
+		end
 		return
 	end
 

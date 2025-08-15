@@ -29,7 +29,7 @@ For reference, I added my used .dotfiles [here](https://github.com/pandalec/dotf
 - ✅ Preview task descriptions with word wrap
 - ✅ Run tasks in a reusable floating terminal (via [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim))
 - ✅ Asynchronous task loading to keep the UI responsive
-- ✅ Optional load tasks on startup
+- ✅ Optional load tasks on startup, and option for disabling startup notification
 - ✅ `:checkhealth gradle` integration
 
 ---
@@ -46,6 +46,7 @@ vim.pack.add({
 })
 
 require("gradle").setup({
+    -- disable_startup_notification = false
 	-- keymaps = false,
 	load_on_startup = true, -- optional
 })
@@ -91,17 +92,17 @@ use({
 
 Default keymaps (can be disabled with `keymaps = false`):
 
-| Mapping      | Description                              |
-| ------------ | ---------------------------------------- |
-| `<leader>gr` | Refresh Gradle tasks asynchronously      |
-| `<leader>gt` | Pick and run a Gradle task via Telescope |
-| `<leader>gw` | Toggle the Gradle floating terminal      |
+| Mapping      | Description                              | `:lua` Command                                  |
+| ------------ | ---------------------------------------- | ----------------------------------------------- |
+| `<leader>gr` | Refresh Gradle tasks asynchronously      | `require('gradle').tasks.refresh_tasks_async()` |
+| `<leader>gt` | Pick and run a Gradle task via Telescope | `require('gradle').telescope.pick_tasks()`      |
+| `<leader>gw` | Toggle the Gradle floating terminal      | `require('gradle').terminal.toggle()`           |
 
 Inside Telescope:
 
 - `<CR>` → Run selected task
 - `<C-g>` → Filter by selected task's group
-- `<C-S-g>` → Jump back to full task list
+- `<C-G>` → Jump back to full task list
 
 ---
 
