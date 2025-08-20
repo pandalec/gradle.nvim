@@ -23,12 +23,15 @@ function M.setup(opts)
 	if not M.state.is_gradle_project() then
 		-- Only print startup notification if enabled
 		if not M.config.disable_startup_notification then
-			vim.notify("[gradle.nvim] No build.gradle found in current project — plugin disabled",
-				vim.log.levels.INFO)
+			vim.notify(
+				"[gradle.nvim] No build.gradle found in current project — plugin disabled",
+				vim.log.levels.INFO
+			)
 		end
 		return
 	end
 
+	-- Configure keymaps
 	if M.config.keymaps then
 		vim.api.nvim_set_keymap(
 			"n",
@@ -49,6 +52,19 @@ function M.setup(opts)
 			{ noremap = true, silent = true, desc = "Select gradle task via telescope" }
 		)
 	end
+
+	-- User commands
+	vim.api.nvim_create_user_command("GradleRefreshTasks", function()
+		require("gradle").tasks.refresh_tasks_async()
+	end, { desc = "Refresh gradle tasks (async)" })
+
+	vim.api.nvim_create_user_command("GradleToggleTerminal", function()
+		require("gradle").terminal.toggle()
+	end, { desc = "Toggle gradle terminal" })
+
+	vim.api.nvim_create_user_command("GradlePickTasks", function()
+		require("gradle").telescope.pick_tasks()
+	end, { desc = "Select gradle task via telescope" })
 
 	-- optional: pre-load tasks without blocking UI
 	if M.config.load_on_startup then
