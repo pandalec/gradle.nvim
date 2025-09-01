@@ -11,6 +11,9 @@ M.config = {
 	keymaps = true,
 	load_on_startup = false,
 	disable_startup_notification = false,
+	floating_terminal_opts = {
+		border = "curved",
+	},
 }
 
 function M.setup(opts)
@@ -18,6 +21,8 @@ function M.setup(opts)
 	M.config.keymaps = opts.keymaps ~= false
 	M.config.load_on_startup = opts.load_on_startup == true
 	M.config.disable_startup_notification = opts.disable_startup_notification == true
+	M.config.floating_terminal_opts =
+		vim.tbl_deep_extend("force", M.config.floating_terminal_opts, opts.floating_terminal_opts or {})
 
 	-- Early exit if not a Gradle project
 	if not M.state.is_gradle_project() then
@@ -80,6 +85,10 @@ function M.setup(opts)
 			end,
 		})
 	end
+end
+
+function M.get_config()
+	return M.config
 end
 
 function M.check_health()

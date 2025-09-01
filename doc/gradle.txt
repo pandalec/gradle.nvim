@@ -40,6 +40,16 @@ Disable notification on startup:
 
     require("gradle").setup({ disable_startup_notification = true })
 
+Custom floating terminal options (optional):
+
+require("gradle").setup({
+    floating_terminal_opts = {
+        border = "curved",
+        title_pos = "center",
+        ...
+    },
+})
+
 > Note:
 > The plugin only activates in directories containing `build.gradle` or
 > `build.gradle.kts`.

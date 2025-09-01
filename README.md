@@ -28,6 +28,7 @@ For reference, I added my used .dotfiles [here](https://github.com/pandalec/dotf
 - ✅ Filter tasks by group
 - ✅ Preview task descriptions with word wrap
 - ✅ Run tasks in a reusable floating terminal (via [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim))
+- ✅ Configurable floating terminal options (`border`, `width`, `height`, `title_pos`, etc.)
 - ✅ Asynchronous task loading to keep the UI responsive
 - ✅ Optional load tasks on startup, and option for disabling startup notification
 - ✅ `:checkhealth gradle` integration
@@ -46,9 +47,14 @@ vim.pack.add({
 })
 
 require("gradle").setup({
-    -- disable_startup_notification = false
-	-- keymaps = false,
-	load_on_startup = true, -- optional
+	keymaps = true,                      -- optional, default: true
+	load_on_startup = true,              -- optional, default: false
+	disable_startup_notification = true, -- optional, default: false
+	floating_terminal_opts = {           -- optional, default: { border = "curved" }
+        border = "curved",
+        title_pos = "center",
+        ...
+    },
 })
 ```
 
@@ -127,6 +133,18 @@ to verify that:
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 - [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)
 - Gradle installed or `./gradlew` in project root
+
+---
+
+## Screenshots
+
+Selection of Gradle tasks via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim):
+
+![Task Selection](img/task_selection.png)
+
+Running a Gradle task via [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim):
+
+![Running Task](img/running_task.png)
 
 ---
 

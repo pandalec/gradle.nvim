@@ -34,12 +34,15 @@ function M.run_task(task)
 
 	if not float_term then
 		local shell = vim.o.shell
+		local config = require("gradle").get_config()
+
 		float_term = Terminal:new({
 			cmd = shell,
 			direction = "float",
 			close_on_exit = false,
-			float_opts = { border = "curved" },
+			float_opts = config.floating_terminal_opts,
 		})
+
 		float_term:toggle()
 	else
 		float_term:open()
