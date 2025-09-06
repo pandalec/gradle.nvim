@@ -40,6 +40,7 @@ function M.run_task(task)
 			cmd = shell,
 			direction = "float",
 			close_on_exit = false,
+			start_in_insert = true,
 			float_opts = config.floating_terminal_opts,
 		})
 
