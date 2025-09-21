@@ -41,16 +41,16 @@ For reference, I added my used .dotfiles [here](https://github.com/pandalec/dotf
 
 ```lua
 vim.pack.add({
-	{ src = "https://github.com/akinsho/toggleterm.nvim" }, -- dependency
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" }, -- dependency
-	{ src = "https://github.com/pandalec/gradle.nvim" },
+    { src = "https://github.com/akinsho/toggleterm.nvim" }, -- dependency
+    { src = "https://github.com/nvim-telescope/telescope.nvim" }, -- dependency
+    { src = "https://github.com/pandalec/gradle.nvim" },
 })
 
 require("gradle").setup({
-	keymaps = true,                      -- optional, default: true
-	load_on_startup = true,              -- optional, default: false
-	disable_startup_notification = true, -- optional, default: false
-	floating_terminal_opts = {           -- optional, default: { border = "curved" }
+    keymaps = true,                      -- optional, default: true
+    load_on_startup = true,              -- optional, default: false
+    disable_startup_notification = true, -- optional, default: false
+    floating_terminal_opts = {           -- optional, default: { border = "curved" }
         border = "curved",
         title_pos = "center",
         ...
