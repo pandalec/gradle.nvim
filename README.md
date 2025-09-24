@@ -16,7 +16,7 @@ This is my first attempt at writing a Neovim plugin in Lua - I'm still pretty ne
 
 The code is likely not perfect, but it works for my needs and might be useful for others as well. Feedback, improvements, and pull requests are very welcome!
 
-For reference, I added my used .dotfiles [here](https://github.com/pandalec/dotfiles).
+For context, I've shared my `.dotfiles` [here](https://github.com/pandalec/dotfiles).
 
 ---
 
