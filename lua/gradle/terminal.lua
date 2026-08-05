@@ -36,12 +36,8 @@ function M.run_task(task)
     local shell = vim.o.shell
     local config = require("gradle").get_config()
 
-    float_term = Terminal:new({
+    local opts = vim.tbl_deep_extend('force', config.toggleterm_opts, {
       cmd = shell,
-      direction = "float",
-      close_on_exit = false,
-      float_opts = config.floating_terminal_opts,
-
       -- Workaround for entering insert mode
       on_open = function(term)
         local bufnr = term.bufnr or vim.api.nvim_get_current_buf()
@@ -58,6 +54,7 @@ function M.run_task(task)
       end,
     })
 
+    float_term = Terminal:new(opts)
     float_term:toggle()
   else
     float_term:open()
