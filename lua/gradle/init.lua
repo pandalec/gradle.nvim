@@ -12,7 +12,7 @@ M.config = {
   load_on_startup = false,
   disable_startup_notification = false,
   floating_terminal_opts = {
-    border = "curved",
+    border = "rounded",
   },
 }
 
