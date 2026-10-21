@@ -50,10 +50,12 @@ require("gradle").setup({
     keymaps = true,                      -- optional, default: true
     load_on_startup = true,              -- optional, default: false
     disable_startup_notification = true, -- optional, default: false
-    floating_terminal_opts = {           -- optional, default: { border = "curved" }
-        border = "curved",
-        title_pos = "center",
-        ...
+    toggleterm_opts = {                  -- optional, default is shown
+        direction = "float",
+        close_on_exit = false,
+        float_opts = {
+            border = "curved",
+        },
     },
 })
 ```
